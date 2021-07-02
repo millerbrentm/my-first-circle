@@ -45,12 +45,11 @@ jobs:
             echo "it didn't work"; exit 1
           fi
 
-# Two jobs running in parallel not sequentially
 workflows:
   version: 2
   one_and_two:
     jobs:
       - one
       - two:
-        requires:
-          - one
+          requires:
+            - one
