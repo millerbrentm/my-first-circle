@@ -1,0 +1,28 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+
+# Deterministic builds; 1.0 opinionated; 2.0 loosely coupled
+# Build, test, deploy - are loosely coupled
+# Workflow is flow of jobs comprised of steps.
+# Deterministic - run live at commit time and exact same results. Gives reproducibility and reliability.
+# Version pinning - make sure that react@16.0.0 i/o react@">=16"
+# Use caching
+
+
+
+# Step 1 - This is the version number of CircleCi - currently 2
+version: 2
+
+# Step 2 - List of jobs and their definition. Build is required if only one job.
+jobs:
+  build:
+    # This builds the docker container.
+    docker:
+      - image: circleci/node:4.8.2
+    # This defines the steps of a job.
+    steps:
+      # Not sure what this is but it seems like it's a default first step??
+      - checkout
+      - run: echo "Hello, world!"
