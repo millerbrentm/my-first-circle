@@ -15,9 +15,10 @@
 # Step 1 - This is the version number of CircleCi - currently 2
 version: 2
 
-# Step 2 - List of jobs and their definition. Build is required if only one job.
+# Step 2 - List of jobs and their definition. Build is required if only one job - more than one step 
+# needs to be named differently and neither can be named build.
 jobs:
-  build:
+  one:
     # This builds the docker container.
     docker:
       - image: circleci/node:4.8.2
@@ -26,3 +27,18 @@ jobs:
       # Not sure what this is but it seems like it's a default first step??
       - checkout
       - run: echo "Hello, world!"
+  two:
+    # This builds the docker container.
+    docker:
+      - image: circleci/node:4.8.2
+    # This defines the steps of a job.
+    steps:
+      - checkout
+      - run: echo "Hello, again!"
+
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - one
+      - two
