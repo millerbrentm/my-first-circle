@@ -27,6 +27,12 @@ jobs:
       # Not sure what this is but it seems like it's a default first step??
       - checkout
       - run: echo "Hello, world!"
+      - run: mkdir -p my_workspace
+      - run: echo "trying workspace" > my_workspace/echo-output
+      - persist_to_workspace:
+          root: my_workspace
+          paths:
+            - echo-output
   two:
     # This builds the docker container.
     docker:
@@ -35,10 +41,23 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello, again!"
+      - attach_workspace:
+          at: my_workspace
+      - run: |
+          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+            echo "It worked";
+          else
+            echo "it didn't work"; exit 1
+          fi
 
 workflows:
   version: 2
+  # Two jobs running in parallel, not sequentially
   one_and_two:
     jobs:
       - one
-      - two
+      - two:
+        requires:
+          - one
+
+# workspaces can be used by a work
