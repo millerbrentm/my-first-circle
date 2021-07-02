@@ -52,10 +52,9 @@ jobs:
 
 workflows:
   version: 2
-  # Two jobs running in parallel, not sequentially
   one_and_two:
     jobs:
       - one
       - two:
-        requires:
-          - one
+          requires:
+            - one
