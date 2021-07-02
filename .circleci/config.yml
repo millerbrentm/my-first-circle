@@ -10,22 +10,15 @@
 # Version pinning - make sure that react@16.0.0 i/o react@">=16"
 # Use caching
 
-
-
-# Step 1 - This is the version number of CircleCi - currently 2
 version: 2
-
-# Step 2 - List of jobs and their definition. Build is required if only one job - more than one step 
-# needs to be named differently and neither can be named build.
 jobs:
   one:
     docker:
       - image: circleci/node:4.8.2
-    steps:
-      - checkout
-      - run: echo "Hello, world!"
+    - checkout
+      - run: echo "A first hello"
       - run: mkdir -p my_workspace
-      - run: echo "trying workspace" > my_workspace/echo-output
+      - run: echo "Trying out workspaces" > my_workspace/echo-output
       - persist_to_workspace:
           root: my_workspace
           paths:
@@ -44,7 +37,6 @@ jobs:
           else
             echo "Nope!"; exit 1
           fi
-
 workflows:
   version: 2
   one_and_two:
