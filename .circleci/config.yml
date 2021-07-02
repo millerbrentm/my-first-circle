@@ -19,12 +19,9 @@ version: 2
 # needs to be named differently and neither can be named build.
 jobs:
   one:
-    # This builds the docker container.
     docker:
       - image: circleci/node:4.8.2
-    # This defines the steps of a job.
     steps:
-      # Not sure what this is but it seems like it's a default first step??
       - checkout
       - run: echo "Hello, world!"
       - run: mkdir -p my_workspace
@@ -34,10 +31,8 @@ jobs:
           paths:
             - echo-output
   two:
-    # This builds the docker container.
     docker:
       - image: circleci/node:4.8.2
-    # This defines the steps of a job.
     steps:
       - checkout
       - run: echo "Hello, again!"
@@ -50,9 +45,9 @@ jobs:
             echo "it didn't work"; exit 1
           fi
 
+# Two jobs running in parallel not sequentially
 workflows:
   version: 2
-# Two jobs running in parallel not sequentially
   one_and_two:
     jobs:
       - one
